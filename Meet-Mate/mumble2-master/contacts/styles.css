@@ -1,0 +1,22 @@
+body {
+    background-color: #ffffff;
+  }
+  
+  .card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .box-container {
+    border: 2px solid #ffffff; /* Light gray border */
+    border-radius: 10px;      /* Rounded corners */
+    padding: 20px;           /* Inner spacing */
+    background-color: #ffffff; /* Light background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  

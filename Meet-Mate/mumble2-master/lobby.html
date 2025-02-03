@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Room</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles/lobby.css'>
+</head>
+<body>
+
+    <header id="nav">
+       <div class="nav--list">
+            <a href="lobby.html"/>
+                <h3 id="logo">
+                    <img src="./images/logo.png" alt="Site Logo">
+                    <span>MEET-MATE</span>
+                </h3>
+            </a>
+       </div>
+
+        <div id="nav__links">
+            <a class="nav__link" href="index.html">
+                About-Me
+            </a>
+            <a class="nav__link" href="contacts\index.html">
+                Contacts
+            </a>
+            <a class="nav__link" href="help.html">
+                Help
+            </a>
+            <a class="nav__link" id="create__room__btn" href="lobby.html">
+                Create Room
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ede0e0" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+            </a>
+        </div>
+    </header>
+
+    <main id="room__lobby__container">
+        
+        <div id="form__container">
+             <div id="form__container__header">
+                 <p>👋 Create or Join Room</p>
+             </div>
+ 
+            <form id="lobby__form">
+ 
+                 <div class="form__field__wrapper">
+                     <label>Your Name</label>
+                     <input type="text" name="name" required placeholder="Enter your display name..." />
+                 </div>
+ 
+                 <div class="form__field__wrapper">
+                     <label>Room Name</label>
+                     <input type="text" name="room" placeholder="Enter room name..." />
+                 </div>
+
+                 <!-- CAPTCHA Section -->
+                 <div class="container">
+                    <h2>CAPTCHA Verification</h2>
+                    <div class="first">
+                        <div id="captcha"></div>
+                        <button type="button" onclick="generateCaptcha()">Refresh CAPTCHA</button>
+                    </div>
+                    <div class="second">
+                        <input type="text" id="captchaInput" placeholder="Enter CAPTCHA here">
+                        <button type="button" id="verifyBtn" onclick="checkCaptcha()">Verify</button>
+                    </div>
+                    <p id="result" class="fade"></p>
+                </div>
+
+                <div class="form__field__wrapper">
+                    <button type="submit" id="goToRoomBtn" disabled>Go to Room 
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/></svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+
+
+    
+    
+
+
+<style>
+        /* CAPTCHA container */
+.container {
+    background-color: #262625;
+    /* padding: 20px; */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* margin-top: 20px; */
+    text-align: center;
+    min-height: 100px;
+    width: 100%;
+    
+    
+}
+
+/* CAPTCHA header */
+.container h2 {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 2px;
+    width: 180px;
+    
+}
+
+/* CAPTCHA text */
+#captcha {
+    font-size: 30px;
+    font-weight: bold;
+    color: #3498db;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    padding: 10px;
+    /* background-color: #f1f1f1; */
+    /* display: inline-block; */
+    border-radius: 5px;
+    
+
+}
+.first {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.second {
+    height: 60px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 25px;
+    font-weight: 600;
+}
+.second > button {
+    height: 45px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: #c758b245;
+    color: white;
+    border: none;
+    position: relative;
+    border: 2px solid white ;
+}
+button {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#captchaInput {
+    padding: 8px;
+    font-size: 16px;
+    width: 200px;
+    /* margin-top: 10px; */
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #262625;
+    color: white;
+    
+    /* transition: border-color 0.3s ease; */
+    
+
+} 
+
+#captchaInput:focus {
+    outline: none;
+    border-color: #1e90ff;
+    
+
+}
+
+/* Result message */
+#result {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+    position: absolute;
+
+}
+
+#result.fade {
+    opacity: 0;
+}
+
+/* Buttons */
+.first>button {
+    background-color: #c758b245;
+    color: white;
+    border: none;
+    padding: 2px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    height: 40px;
+    border: 2px solid white ; 
+}
+
+</style>
+
+    <script>
+        let captchaText = "";
+        let captchaVerified = false;
+
+        // Function to generate the CAPTCHA
+        function generateCaptcha() {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            captchaText = "";
+            for (let i = 0; i < 6; i++) {
+                captchaText += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById("captcha").innerText = captchaText;
+
+            // Reset CAPTCHA result and input
+            document.getElementById("captchaInput").value = "";
+            document.getElementById("result").classList.add("fade");
+            captchaVerified = false;
+            updateSubmitButton();
+        }
+
+        // Function to check if the CAPTCHA entered is correct
+        function checkCaptcha() {
+            const userInput = document.getElementById("captchaInput").value;
+            const result = document.getElementById("result");
+
+            if (userInput === captchaText) {
+                result.innerText = "CAPTCHA Verified!";
+                result.style.color = "green";
+                captchaVerified = true;
+            } else {
+                result.innerText = "Incorrect CAPTCHA. Try Again!";
+                result.style.color = "red";
+                captchaVerified = false;
+            }
+            result.classList.remove("fade");
+
+            // Update submit button state based on CAPTCHA verification
+            updateSubmitButton();
+        }
+
+        // Function to enable/disable the "Go to Room" button
+        function updateSubmitButton() {
+            const submitButton = document.getElementById("goToRoomBtn");
+            submitButton.disabled = !captchaVerified; // Enable/Disable based on verification
+        }
+
+        // Generate initial CAPTCHA on page load
+        generateCaptcha();
+
+        // Prevent form submission if CAPTCHA is not verified
+        document.getElementById("lobby__form").onsubmit = function (event) {
+            if (!captchaVerified) {
+                event.preventDefault(); // Prevent form submission
+                alert("Please verify the CAPTCHA before proceeding.");
+            }
+        };
+    </script>
+</body>
+<script type="text/javascript" src="js/lobby.js"></script>
+</html>
